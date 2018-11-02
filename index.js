@@ -1,23 +1,20 @@
 import express from 'express'
 import graphqlHTTP from 'express-graphql'
-import { buildSchema } from 'graphql'
+import { makeExecutableSchema } from 'graphql-tools'
 
-let schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`)
+import typeDefs from './schema'
+import resolvers from './resolvers'
+import models from './db/models'
 
-let root = {
-  hello: () => {
-    return 'Hello world!'
-  },
-}
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+})
 
-let app = express()
+const app = express()
 app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
+  schema,
+  context: { models },
   graphiql: true,
 }));
 app.listen(4000)
