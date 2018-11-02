@@ -14,7 +14,10 @@
     "babel-preset-latest": "^6.24.1",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
-    "graphql": "^14.0.2"
+    "graphql": "^14.0.2",
+    "pg": "^7.6.0",
+    "sequelize": "^4.41.0",
+    "sequelize-cli": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"
