@@ -14,6 +14,7 @@ export default `
   }
 
   type Query {
+    me: User
     allUsers: [User!]!
     getUser(id: Int!): User
   }
