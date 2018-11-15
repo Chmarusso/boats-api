@@ -21,7 +21,7 @@ app.use('/graphql', graphqlHTTP( req => ({
     models,
     userId: req.userId
   },
-  graphiql: true,
+  graphiql: true
 })))
 
 app.listen(4000)
