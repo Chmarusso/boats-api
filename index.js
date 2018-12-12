@@ -7,12 +7,15 @@ import resolvers from './resolvers'
 import models from './db/models'
 import { getUserIdMiddleware } from './services/user'
 
+import cors from 'cors'
+
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 })
 
 const app = express()
+app.use(cors())
 app.use(getUserIdMiddleware)
 
 app.use('/graphql', graphqlHTTP( req => ({
