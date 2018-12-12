@@ -9,8 +9,8 @@ export default {
   },
 
   Boat: {
-    user: async (boat, args, { models }) =>
-      models.User.findOne({ where: { id: boat.userId } })
+    user: async (boat, args, { loaders }) =>
+      await loaders.user.load(boat.userId)
   },
 
   Mutation: {

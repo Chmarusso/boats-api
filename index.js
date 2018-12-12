@@ -8,6 +8,18 @@ import models from './db/models'
 import { getUserIdMiddleware } from './services/user'
 
 import cors from 'cors'
+import DataLoader from 'dataloader'
+
+const batchUsers = async (keys, models) => {
+  const users = await models.User.findAll({
+    where: {
+      id: {
+        $in: keys,
+      },
+    },
+  })
+  return keys.map(key => users.find(user => user.id === key))
+}
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -22,7 +34,10 @@ app.use('/graphql', graphqlHTTP( req => ({
   schema,
   context: {
     models,
-    userId: req.userId
+    userId: req.userId,
+    loaders: {
+      user: new DataLoader(keys => batchUsers(keys, models)),
+    }
   },
   graphiql: true
 })))
